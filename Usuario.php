@@ -59,6 +59,22 @@ class Usuario
         return $confirmacion;
     }
 
+    public static function LeeUsuariosCSV($nombreArchivo)
+    {
+        $archivo = fopen($nombreArchivo, "r");
+        $arrayAtributos = array();
+        $arrayDeUsuarios = array();
+
+        while (!feof($archivo)) {
+            $arrayAtributos = fgetcsv($archivo);
+            if (!empty($arrayAtributos)) {
+                $usuarioAuxiliar = new Usuario($arrayAtributos[0], $arrayAtributos[1], $arrayAtributos[2]);
+                array_push($arrayDeUsuarios, $usuarioAuxiliar);
+            }
+        }
+        return $arrayDeUsuarios;
+    }
+
     public static function GuardarListaJSON($usuariosArray)
     {
         $archivo = fopen("usuarios.json", "w");
@@ -111,5 +127,66 @@ class Usuario
             }
         }
         return null;
+    }
+
+    //funcion para las imagenes
+
+    public static function SubirImagen()
+    {
+        $nombre = $_FILES["imagen"]["name"];
+
+        //INDICO CUALES SERAN LOS DESTINOS DE LOS ARCHIVOS SUBIDOS Y SUS TIPOS
+        $destinos = array();
+        $tiposArchivo = array();
+        $destino =  $nombre;
+        array_push($destinos, $destino);
+        array_push($tiposArchivo, pathinfo($destino, PATHINFO_EXTENSION));
+
+        $uploadOk = TRUE;
+        $mensaje = '';
+
+        //VERIFICO QUE LOS ARCHIVOS NO EXISTAN
+        foreach ($destinos as $destino) {
+            if (file_exists($destino)) {
+                $mensaje = "El archivo {$destino} ya existe. Verifique!!!";
+                $uploadOk = FALSE;
+                break;
+            }
+        }
+
+        //OBTIENE EL TAMAÑO DE UNA IMAGEN, SI EL ARCHIVO NO ES UNA
+        //IMAGEN, RETORNA FALSE
+        $tmpName = $_FILES["imagen"]["tmp_name"];
+        $i = 0;
+
+        $esImagen = getimagesize($tmpName);
+
+        if ($esImagen) { //NO ES UNA IMAGEN
+            //SOLO PERMITO CIERTAS EXTENSIONES
+            if (
+                $tiposArchivo[$i] != "jpg" && $tiposArchivo[$i] != "jpeg" && $tiposArchivo[$i] != "gif"
+                && $tiposArchivo[$i] != "png" && $tiposArchivo[$i] != "JPG"
+            ) {
+                $mensaje =  "Solo son permitidas imagenes con extension JPG, JPEG, PNG o GIF.";
+                $uploadOk = FALSE;
+            }
+        }
+
+        $i++;
+
+        //VERIFICO SI HUBO ALGUN ERROR, CHEQUEANDO $uploadOk
+        if ($uploadOk === FALSE) {
+
+            $mensaje =  "<br/>NO SE PUDIERON SUBIR LOS ARCHIVOS.";
+        } else {
+            //MUEVO LOS ARCHIVOS DEL TEMPORAL AL DESTINO FINAL
+            if (move_uploaded_file($tmpName, $destinos[0])) {
+                $mensaje =  "<br/>El archivo " . basename($tmpName) . " ha sido subido exitosamente.";
+            } else {
+                $mensaje =  "<br/>Lamentablemente ocurri&oacute; un error y no se pudo subir el archivo " . basename($tmpName) . ".";
+            }
+        }
+
+        echo $mensaje;
     }
 }

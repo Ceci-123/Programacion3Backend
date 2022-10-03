@@ -44,5 +44,8 @@ $resultado = Producto::BuscarProducto($inventario, $productoParaComparar);
 $resultado2 = Producto::BuscarProductoPorCodigo($inventario, 1234);
 var_dump($resultado2); */
 
-$hagoUnaVenta = new Venta("Milo", "1234", 2);
-var_dump($hagoUnaVenta);
+/* $hagoUnaVenta = new Venta("Milo", "1234", 2);
+var_dump($hagoUnaVenta); */
+
+
+Usuario::SubirImagen();
