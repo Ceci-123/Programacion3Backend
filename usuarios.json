@@ -1,0 +1,24 @@
+[
+    {
+        "nombre": "milena",
+        "clave": "1234",
+        "mail": "more@gmail.com",
+        "id": 7202,
+        "fechaRegistro": {
+            "date": "2003-10-22 04:12:27.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    },
+    {
+        "nombre": "Milo",
+        "clave": "password",
+        "mail": "milo@gmail.com",
+        "id": 7203,
+        "fechaRegistro": {
+            "date": "2003-10-22 04:12:27.000000",
+            "timezone_type": 3,
+            "timezone": "Europe\/Berlin"
+        }
+    }
+]

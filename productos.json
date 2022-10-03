@@ -1,0 +1,30 @@
+[
+    {
+        "codigoBarras": 1234,
+        "nombre": "humus",
+        "tipo": "comida",
+        "stock": 200,
+        "precio": 100.2
+    },
+    {
+        "codigoBarras": 1235,
+        "nombre": "coca",
+        "tipo": "bebida",
+        "stock": 300,
+        "precio": 800.5
+    },
+    {
+        "codigoBarras": 1236,
+        "nombre": "kitkat",
+        "tipo": "postre",
+        "stock": 100,
+        "precio": 400.5
+    },
+    {
+        "codigoBarras": 1237,
+        "nombre": "papasfritas",
+        "tipo": "snack",
+        "stock": 250,
+        "precio": 80.35
+    }
+]
